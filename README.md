@@ -1,5 +1,5 @@
 # F5 BIG-IP Terraform & Consul Webinar - Zero Touch App Delivery with F5, Terraform & Consul
-- This repository will provision BIG-IP VE (Pay as you Grow), Consul & NGINX servers in AWS
+- This repository will provision BIG-IP VE (Pay as you Go), Consul & NGINX servers in AWS
 
 # Demo
 You can check out a recording of this demo [here](https://youtu.be/rVTgTXpiopc?t=1489)
@@ -12,7 +12,14 @@ You can check out a recording of this demo [here](https://youtu.be/rVTgTXpiopc?t
 This repo comprises two main functions:
 
 - Initial provisioning of the of the infrastructure in AWS
+  * Prerequisites:
+    Amazon Web Services account
+    Computer with Git installed
 - Github Actions Workflows for ongoing operations
+  * Prerequisites:
+    Amazon Web Services account
+    Computer with Git installed
+    Github accouunt
 
 ## Provision Infrastructure
 
@@ -20,11 +27,11 @@ This repo comprises two main functions:
 - Option 2 - Migrating an existing F5 BIG-IP deployment to leverage AS3 Consul integration: Follow the steps outlined in [`README.md`](brownfield-approach/README.md) within `brownfield-approach` subfolder.
 
 
-The `terraform` directory has tf files for creating instances for consul, f5, iam policy, nginx servers with autoscale group.
+The `terraform` directory has tf files for creating instances for Consul, F5, IAM policy, Nginx servers in an autoscale group.
 
-- `main.tf` refers to what region is used on aws.
+- `main.tf` refers to what region is used on AWS.
 - `ssh.tf` is used to create the key pairs.
-- `vpc.tf` is used to create a new vpc and also to define the aws security groups.
+- `vpc.tf` is used to create a new VPC and also to define the AWS security groups.
 - `outputs.tf` is used to output and display F5 BIG-IP management IP and F5 BIG-IP dynamic Password
 
 
@@ -35,8 +42,8 @@ git clone https://github.com/dgarrison63/consul_testing
 cd f5-terraform-consul-sd-webinar/terraform/
 ```
 
-- Modify `terraform.tfvars.example` and add a **prefix** to add to each of your resources that are created
-- Modify `terraform.tfvars.example` and add a **region** to identify which AWS region where your resources are created
+- Modify `terraform.tfvars.example` and define a **prefix** to add to each of your resources that are created
+- Modify `terraform.tfvars.example` and define the **region** to identify the AWS region where your resources will be created
 - Rename `terraform.tfvars.example` to `terraform.tfvars`
 
 From the root of the repo, run this command to create the infrastructure in AWS using Terraform
@@ -46,10 +53,10 @@ From the root of the repo, run this command to create the infrastructure in AWS 
 
   - This will create BIG-IP, consul, NGINX instances on AWS
   - This will also seed a `terraform.tfvars` file in the `as3` directory for use in the next step
-  - It may take up to 5 minutes or after the run is complete for the environment to become ready. The URL for the BIG-IP UI is provided as part of the output.  Verify you can reach the UI before proceeding.
+  - It may take up to 5 minutes or after the run is complete for the environment to become ready. The URLs for the BIG-IP UI and the Consul server are defined in the Terraform output.  Please verify you can reach the BIG-IP and Consul server before proceeding.
 
 
-### Configure BIG-IP
+### Configure BIG-IP using AS3
 
 
 Next we need to download and load AS3 rpm into BIG-IP, for AS3 documentation and download please refer to https://github.com/F5Networks/f5-appsvcs-extension  note :- this currently uses AS3 3.19.0 rpm image
@@ -81,7 +88,7 @@ Personal Github accounts are free and support Github Actions workflows. If you d
 
 From your Github account, create an empty repository that will be populated from the Git repo on your local computer. For more information on how to create a new repo in Github, please see [Create a repo](https://docs.github.com/en/github/getting-started-with-github/create-a-repo).
 
-Before you can populate your empty remote Github repo from your local Git repo, you will first need to disconnect your local repo from the original repo that you cloned from:
+Before you can populate your new, empty remote Github repo from your local Git repo, you will first need to disconnect your local Git repo from the original repo that you cloned from:
 ```
 git remote rm origin
 ```
