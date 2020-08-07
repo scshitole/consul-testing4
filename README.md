@@ -13,13 +13,13 @@ This repo comprises two main functions:
 
 - Initial provisioning of the of the infrastructure in AWS
   * Prerequisites:
-    Amazon Web Services account
-    Computer with Git installed
+\    Amazon Web Services account
+\   Computer with Git installed
 - Github Actions Workflows for ongoing operations
   * Prerequisites:
-    Amazon Web Services account
-    Computer with Git installed
-    Github accouunt
+\    Amazon Web Services account
+\   Computer with Git installed
+\   Github accouunt
 
 ## Provision Infrastructure
 
