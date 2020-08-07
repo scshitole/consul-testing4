@@ -11,12 +11,12 @@ You can check out a recording of this demo [here](https://youtu.be/rVTgTXpiopc?t
 
 This repo comprises two main functions:
 
-- Initial provisioning of the of the infrastructure in AWS
+- Initial provisioning of the of the infrastructure in AWS\
     **Prerequisites:**
     - Amazon Web Services account\
     - Computer with Git installed
 
-- Github Actions workflows for ongoing operations
+- Github Actions workflows for ongoing operations\
     **Prerequisites:**
     - Amazon Web Services account\
     - Computer with Git installed\
