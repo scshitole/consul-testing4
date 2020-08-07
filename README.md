@@ -31,7 +31,7 @@ The `terraform` directory has tf files for creating instances for consul, f5, ia
 ### Steps 
 - Clone the repository & change working directory to terraform
 ```
-::strike:: `git clone https://github.com/hashicorp/f5-terraform-consul-sd-webinar`
+:strike: `git clone https://github.com/hashicorp/f5-terraform-consul-sd-webinar`
 cd f5-terraform-consul-sd-webinar/terraform/
 ```
 - Create Terraform run
