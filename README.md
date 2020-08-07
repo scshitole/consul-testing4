@@ -31,29 +31,28 @@ The `terraform` directory has tf files for creating instances for consul, f5, ia
 ### Steps 
 - Clone the repository & change working directory to terraform
 ```
-~~git clone https://github.com/hashicorp/f5-terraform-consul-sd-webinar~~
+git clone https://github.com/dgarrison63/consul_testing
 cd f5-terraform-consul-sd-webinar/terraform/
 ```
-- Create Terraform run
-- Modify `terraform.tfvars.example` and add a prefix to identify your resources
+
+- Modify `terraform.tfvars.example` and add a **prefix** to add to each of your resources that are created
+- Modify `terraform.tfvars.example` and add a **region** to identify which AWS region where your resources are created
 - Rename `terraform.tfvars.example` to `terraform.tfvars`
 
+From the root of the repo, run this command to create the infrastructure in AWS using Terraform
 ```
-terraform init
-terraform plan
-terraform apply
+./create-demo.sh
 ```
 
   - This will create BIG-IP, consul, NGINX instances on AWS
   - This will also seed a `terraform.tfvars` file in the `as3` directory for use in the next step
-  - This step
   - It may take up to 5 minutes or after the run is complete for the environment to become ready. The URL for the BIG-IP UI is provided as part of the output.  Verify you can reach the UI before proceeding.
 
 
 ### Configure BIG-IP
 
 
-Next we need to download and load AS3 rpm into BIG-IP, for AS3 documentation and download please refer to https://github.com/F5Networks/f5-appsvcs-extension  note :- this currently uses AS3 3.7.0 rpm image
+Next we need to download and load AS3 rpm into BIG-IP, for AS3 documentation and download please refer to https://github.com/F5Networks/f5-appsvcs-extension  note :- this currently uses AS3 3.19.0 rpm image
 
 ```
 terraform init
@@ -82,7 +81,12 @@ Personal Github accounts are free and support Github Actions workflows. If you d
 
 From your Github account, create an empty repository that will be populated from the Git repo on your local computer. For more information on how to create a new repo in Github, please see [Create a repo](https://docs.github.com/en/github/getting-started-with-github/create-a-repo).
 
-Once you have an empty Github repo, you will need to push your local Git repo to your Github repo. Complete the following steps, replacing **myAccount** and **myRepo** with the appropriate values:
+Before you can populate your empty remote Github repo from your local Git repo, you will first need to disconnect your local repo from the original repo that you cloned from:
+```
+git remote rm origin
+```
+
+Push your local Git repo to your emtpy Github repo. Complete the following steps, replacing **myAccount** and **myRepo** with the appropriate values:
 ```
 Change directory to the root of your local Git repo
 git remote add origin https://github.com/**myAccount**/**myRepo**
@@ -127,7 +131,7 @@ git add example-service.json
 git commit -m "Added new Consul service"
 git push
 ```
-Once completed, the new, example service should be registered an visible in the Consul dashboard. Additionally, you can view the workflow steps in the **Actions** section of your Github repo.
+Once completed, the new, example service should be registered and visible in the Consul dashboard. Additionally, you can view the workflow steps in the **Actions** section of your Github repo.
 
 **De-register a service in Consul**
 ```
