@@ -15,11 +15,12 @@ This repo comprises two main functions:
   * Prerequisites:\
     Amazon Web Services account\
     Computer with Git installed\
+
 - Github Actions workflows for ongoing operations
   * Prerequisites:\
-    Amazon Web Services account\
-    Computer with Git installed\
-    Github accouunt
+    - Amazon Web Services account\
+    - Computer with Git installed\
+    - Github accouunt
 
 ## Provision Infrastructure
 
