@@ -71,7 +71,7 @@ terraform apply
 - Do terraform plan & apply, this will deploy the AS3 declarative JSON for service discovery on BIG-IP. It will use as3.tf file. You can review the `terraform.tfvars` file that was generated in the previous step or rename and edit `terraform.tfvars.example` file in that directory to pass the necessary variables to terraform, or enter them manually via the CLI, copying the format of the values in the file.
 - Now you have Virtual IP and Pool information already configured on BIG-IP in partition defined in the consul.json file.
 
-# How to test?
+## How to test?
 - You can access backend applications using http://VIP_IP:8080 where VIP_IP is the Elastic IP which maps to BIG-IP Private VIP_IP.
 - The NGINX servers are already in Auto scale group with consul agents running and sending all information to Consul server.
 - Use case is when you destroy or bring down  one of the NGINX server, BIG-IP AS3 will poll the consul server and update the pool members automatically
@@ -114,16 +114,14 @@ For information on how to create Github secrets, please see [Github Secrets](htt
 There are four workflows defined:
 
 **Register New Consul Service**
-  -  Put new service definitions to be registered in Consul in the /declarations/consul/register directory, commit and push to Github
-
+  -  Workflow uses the Consul command line interface(CLI) to register new services in Consul
 **Deregister Existing Consul Service**
-  - Put existing service definitions to be de-registered in Consul in the /declarations/consul/deregister directory, commit and push to Github
-
+  -  Workflow uses the Consul command line interface(CLI) to de-register services in Consul
 **Register New AS3 Declaration**
-  - Put new AS3 declarations to be registered in BIG-IP in the /declarations/as3/register directory, commit and push to Github
+  - Workflow uses the F5 command line interface(CLI) to register new AS3 declarations on BIG-IP
 
 **Deregister Existing AS3 Declaration**
-  - Put empty AS3 declarations to be de-registered in BIG-IP in the /declarations/as3/deregister directory, commit and push to Github
+  Workflow uses the F5 command line interface(CLI) to de-register AS3 declarations from BIG-IP
 
 ## Test Github Actions workflows
 Github Action workflows are triggered by Github events. In the following examples, the workflows are triggered when updates are pushed from your local Git repo to your Github repo. You can use the provided examples to test registering and deregistering Consul services and AS3 declarations or use your own.
