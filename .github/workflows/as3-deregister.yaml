@@ -1,9 +1,8 @@
-name: Deploy AS3 Declaration
+name: De-Register AS3 Declaration
 
 on:
   push:
     paths:
-    - "declarations/as3/register/**"
     - "declarations/as3/deregister/**"
     branches: 
     - master
@@ -16,14 +15,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Read S3 bucket parameters
+      id: s3_bucket
+      run: | 
+         echo ::set-output name=s3_bucket_name::$(cat ./s3/s3_bucket_params.json | jq -r '.bucket.name')
+         echo ::set-output name=s3_bucket_key::$(cat ./s3/s3_bucket_params.json | jq -r '.bucket.key')
+         echo ::set-output name=s3_bucket_region::$(cat ./s3/s3_bucket_params.json | jq -r '.bucket.region')
+   
     - name: read S3 bucket
       uses: prewk/s3-cp-action@master
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: 'us-east-1' # optional: defaults to us-east-1
-        SOURCE: 's3://dgarrison-consul-sd/deploy-infrastructure'
-        DEST: './s3-variables'
+        AWS_REGION: ${{ steps.s3_bucket.outputs.s3_bucket_region }}
+        SOURCE: s3://${{ steps.s3_bucket.outputs.s3_bucket_name }}/${{ steps.s3_bucket.outputs.s3_bucket_key }}
+        DEST: ./s3-variables
 
     - name: Set up Python 3.7
       uses: actions/setup-python@v2
@@ -73,21 +80,21 @@ jobs:
 #      if: steps.set_outputs.output.as3_installed == false
       run: echo "THIS IS THE INSTALL STATUS " ${{ steps.set_outputs.outputs.as3_installed }}
 
-    - name: upgrade if needed
+    - name: Upgrade if needed
       id: upgrade_as3
       if: steps.set_outputs.outputs.as3_current < steps.set_outputs.outputs.as3_latest
       run: echo 'installed as3 version older than latest version'    
     
-    - name: get list of changed files
+    - name: Get list of changed files
       id: files
       uses: jitterbit/get-changed-files@v1
       
-    - name: deploy as3 declaration
+    - name: De-Register AS3 declaration
       id: deploy_as3
       # if: steps.verify.outputs.verify_results && steps.files.output.added_modified
       run: |
         for changed_file in ${{ steps.files.outputs.added_modified }}; do
-        if [[ $changed_file =~  ^declarations/as3/register/.* ]]
+        if [[ $changed_file =~  ^declarations/as3/deregister/.* ]]
         then
           echo "name of chnaged file = ${changed_file}"
           echo ::set-output name=deploy_results::$(f5 bigip extension as3 create --declaration ${changed_file} 2>&1 | jq '.results[0] .code')
@@ -96,5 +103,5 @@ jobs:
         fi          
         done
     
-    - name: show f5 as3 deploy result
+    - name: Show F5 AS3 deploy result
       run: echo "F5 AS3 declaration deploy result = ${{ steps.deploy_as3.outputs.deploy_results }}"
