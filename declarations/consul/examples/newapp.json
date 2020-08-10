@@ -1,7 +1,7 @@
 {
     "service": {
       "name": "newapp",
-      "port": 80,
+      "port": 8080,
       "checks": [
         {
           "id": "newapp",
