@@ -115,8 +115,10 @@ There are four workflows defined:
 
 **Register New Consul Service**
   -  Workflow uses the Consul command line interface(CLI) to register new services in Consul
+
 **Deregister Existing Consul Service**
   -  Workflow uses the Consul command line interface(CLI) to de-register services in Consul
+  
 **Register New AS3 Declaration**
   - Workflow uses the F5 command line interface(CLI) to register new AS3 declarations on BIG-IP
 
