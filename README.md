@@ -114,16 +114,16 @@ For information on how to create Github secrets, please see [Github Secrets](htt
 There are four workflows defined:
 
 **Register New Consul Service**
-  -  Workflow uses the Consul command line interface(CLI) to register new services in Consul
+  -  Workflow uses the Consul command line interface (CLI) to register new services in Consul
 
 **Deregister Existing Consul Service**
-  -  Workflow uses the Consul command line interface(CLI) to de-register services in Consul
-  
+  -  Workflow uses the Consul command line interface (CLI) to de-register services in Consul
+
 **Register New AS3 Declaration**
-  - Workflow uses the F5 command line interface(CLI) to register new AS3 declarations on BIG-IP
+  - Workflow uses the F5 command line interface (CLI) to register new AS3 declarations on BIG-IP
 
 **Deregister Existing AS3 Declaration**
-  Workflow uses the F5 command line interface(CLI) to de-register AS3 declarations from BIG-IP
+  - Workflow uses the F5 command line interface (CLI) to de-register AS3 declarations from BIG-IP
 
 ## Test Github Actions workflows
 Github Action workflows are triggered by Github events. In the following examples, the workflows are triggered when updates are pushed from your local Git repo to your Github repo. You can use the provided examples to test registering and deregistering Consul services and AS3 declarations or use your own.
